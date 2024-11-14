@@ -5,10 +5,13 @@ import { EpisodesModule } from './episodes/episodes.module';
 import { TopicsModule } from './topics/topics.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EpisodeEntity } from './episodes/types/episodes.entity';
+import { PodcastsModule } from './podcasts/podcasts.module';
 
 @Module({
-  imports: [EpisodesModule, TopicsModule,
-
+  imports: [
+    EpisodesModule,
+    TopicsModule,
+    PodcastsModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: 'db',

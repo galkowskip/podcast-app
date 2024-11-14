@@ -4,9 +4,7 @@ import { EpisodeCreateDto, EpisodeUpdateDto } from './types/episodes.dto';
 
 @Controller('episodes')
 export class EpisodesController {
-    constructor(private readonly episodesService: EpisodesService) {
-
-    }
+    constructor(private readonly episodesService: EpisodesService) {}
 
     @Get()
     async findAll() {

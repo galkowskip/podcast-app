@@ -1,4 +1,15 @@
-import { IsString, IsInt, IsDate, IsOptional, IsBoolean } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsBoolean } from 'class-validator';
+
+export class EpisodeDto {
+    id: number;
+    podcastId: number;
+    title: string;
+    description: string;
+    duration: number;
+    releaseDate: string;
+    featured: boolean;
+    episodeNumber: number;
+}
 
 export class EpisodeCreateDto {
     @IsInt()
@@ -26,6 +37,8 @@ export class EpisodeCreateDto {
 }
 
 export class EpisodeUpdateDto {
+    @IsInt()
+    podcastId: number;
 
     @IsOptional()
     @IsString()

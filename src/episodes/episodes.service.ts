@@ -29,6 +29,10 @@ export class EpisodesService {
         return await this.episodeRepository.find()
     }
 
+    async findEpisodesByPodcastId(podcastId: number) {
+        return await this.episodeRepository.find({ where: { podcastId } })
+    }
+
     async findFeatured() {
         return await this.episodeRepository.find({ where: { featured: true } })
     }
