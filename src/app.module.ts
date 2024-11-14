@@ -16,14 +16,18 @@ import { EpisodeEntity } from './episodes/types/episodes.entity';
       username: 'sa',
       password: 'YourStrong!Passw0rd',
       entities: [EpisodeEntity],
-      synchronize: true 
+      database: 'podcast-app',
+      synchronize: true,
+      extra: {
+        trustServerCertificate: true,
+      }
     })
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 
-export class AppModule { 
+export class AppModule {
 
 
 }
