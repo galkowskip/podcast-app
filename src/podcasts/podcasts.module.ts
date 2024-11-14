@@ -8,7 +8,7 @@ import { EpisodesModule } from 'src/episodes/episodes.module';
 @Module({
     imports: [EpisodesModule, TypeOrmModule.forFeature([PodcastEntity])],
     controllers: [PodcastsController],
-    providers: [PodcastsService]
+    providers: [PodcastsService],
 })
 
 export class PodcastsModule { }

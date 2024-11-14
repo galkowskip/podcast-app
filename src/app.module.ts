@@ -6,6 +6,7 @@ import { TopicsModule } from './topics/topics.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EpisodeEntity } from './episodes/types/episodes.entity';
 import { PodcastsModule } from './podcasts/podcasts.module';
+import { PodcastEntity } from './podcasts/types/podcast.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { PodcastsModule } from './podcasts/podcasts.module';
       port: 1433,
       username: 'sa',
       password: 'YourStrong!Passw0rd',
-      entities: [EpisodeEntity],
+      entities: [EpisodeEntity, PodcastEntity],
       database: 'podcast-app',
       synchronize: true,
       extra: {

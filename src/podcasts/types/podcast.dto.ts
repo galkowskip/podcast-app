@@ -5,8 +5,8 @@ export class PodcastDto {
     title: string;
     description: string;
     episodesAmount: number;
-    rating: number;
-    lastEpisodeDate: string;
+    rating?: number;
+    lastEpisodeDate?: string;
     createdAt: string;
     updatedAt: string;
 }

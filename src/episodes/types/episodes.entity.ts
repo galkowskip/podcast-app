@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class EpisodeEntity {
     @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number
 
     @Column()

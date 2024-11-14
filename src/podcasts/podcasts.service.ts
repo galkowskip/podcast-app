@@ -4,7 +4,7 @@ import { PodcastEntity } from './types/podcast.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EpisodesService } from 'src/episodes/episodes.service';
 import { EpisodeCreateDto, EpisodeUpdateDto } from 'src/episodes/types/episodes.dto';
-import { PodcastCreateDto, PodcastUpdateDto } from './types/podcast.dto';
+import { PodcastCreateDto, PodcastDto, PodcastUpdateDto } from './types/podcast.dto';
 
 @Injectable()
 export class PodcastsService {
@@ -15,7 +15,11 @@ export class PodcastsService {
     ) { }
 
     async findAll() {
-        return await this.podcastRepository.find()
+        const podcasts = await this.podcastRepository.find()
+
+        return await Promise.all(podcasts.map(async podcast => {
+            return await this.getPodcastEpisodeData(podcast)
+        }))
     }
 
     async findOne(id: string) {
@@ -26,7 +30,22 @@ export class PodcastsService {
             throw new Error('Podcast not found');
         }
 
-        return foundPodcast
+        const podcast = await this.getPodcastEpisodeData(foundPodcast)
+
+        return podcast
+    }
+
+    async getPodcastEpisodeData (podcastEntity: PodcastEntity) {
+        const episodesAmount = await this.episodesService.getPodcastEpisodeCount(podcastEntity.id)
+        const lastEpisode = await this.episodesService.getLastEpisode(podcastEntity.id)
+
+        const podcast = {
+            ...podcastEntity,
+            lastEpisodeDate: lastEpisode?.releaseDate || undefined,
+            episodesAmount: episodesAmount
+        } as PodcastDto
+
+        return podcast
     }
 
     async findEpisodes(id: string) {
@@ -48,6 +67,7 @@ export class PodcastsService {
         newPodcast.description = data.description
         newPodcast.createdAt = new Date().toISOString()
         newPodcast.updatedAt = new Date().toISOString()
+        newPodcast.rating = 0
 
         return await this.podcastRepository.save(newPodcast)
     }

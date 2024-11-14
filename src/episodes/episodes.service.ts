@@ -20,7 +20,7 @@ export class EpisodesService {
         newEpisode.duration = data.duration
         newEpisode.releaseDate = data.releaseDate
         newEpisode.featured = data.featured
-        newEpisode.episodeNumber = data.episodeNumber
+        newEpisode.episodeNumber = await this.findNextEpisodeNumber(data.podcastId)
 
         return await this.episodeRepository.save(newEpisode)
     }
@@ -58,5 +58,25 @@ export class EpisodesService {
         const idToNumber = parseInt(id)
 
         return await this.episodeRepository.update({ id: idToNumber }, data)
+    }
+
+    async findNextEpisodeNumber(podcastId: number) {
+        const episodes = await this.episodeRepository.find({ where: { podcastId } })
+        const episodeNumbers = episodes.map(episode => episode.episodeNumber)
+        const maxEpisodeNumber = Math.max(...episodeNumbers)
+
+        return maxEpisodeNumber + 1
+    }
+
+    async getPodcastEpisodeCount(podcastId: number) {
+        const episodes = await this.episodeRepository.count({ where: { podcastId } })
+
+        return episodes
+    }
+
+    async getLastEpisode(podcastId: number) {
+        const lastEpisode = await this.episodeRepository.findOne({ where: { podcastId }, order: { releaseDate: 'DESC' } })
+
+        return lastEpisode
     }
 }
