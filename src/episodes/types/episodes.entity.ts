@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne } from "typeorm";
 
 @Entity()
 export class EpisodeEntity {
@@ -6,6 +6,7 @@ export class EpisodeEntity {
     @PrimaryColumn()
     id: number
 
+    @ManyToOne(() => EpisodeEntity, episode => episode.id)
     @Column()
     podcastId: number
 
@@ -17,6 +18,9 @@ export class EpisodeEntity {
 
     @Column()
     duration: number
+
+    @Column()
+    fileUrl: string
 
     @Column()
     releaseDate: string

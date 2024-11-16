@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 
 import { EpisodeEntity } from './types/episodes.entity';
+import { EpisodesController } from './episodes.controller';
 
 @Module({
     imports: [ConfigModule, TypeOrmModule.forFeature([EpisodeEntity])],
     providers: [EpisodesService],
+    controllers: [EpisodesController],
     exports: [EpisodesService]
 })
 
-export class EpisodesModule {}
+export class EpisodesModule { }

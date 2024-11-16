@@ -48,18 +48,6 @@ export class PodcastsService {
         return podcast
     }
 
-    async findEpisodes(id: string) {
-        return await this.episodesService.findEpisodesByPodcastId(parseInt(id))
-    }
-
-    async findEpisode(id: string, episodeId: string) {
-        return await this.episodesService.findOne(episodeId)
-    }
-
-    async findFeaturedEpisodes(id: string) {
-        return await this.episodesService.findFeatured()
-    }
-
     async createNewPodcast(data: PodcastCreateDto) {
         const newPodcast = new PodcastEntity()
 
@@ -85,24 +73,6 @@ export class PodcastsService {
         const idToNumber = parseInt(id)
 
         return await this.podcastRepository.delete({ id: idToNumber })
-    }
-
-    async createNewEpisode(id: string, data: EpisodeCreateDto) {
-        return await this.episodesService.createNewEpisode({
-            ...data,
-            podcastId: parseInt(id)
-        })
-    }
-
-    async updateEpisode(id: string, episodeId: string, data: EpisodeUpdateDto) {
-        return await this.episodesService.updateEpisode(episodeId, {
-            ...data,
-            podcastId: parseInt(id)
-        })
-    }
-
-    async deleteEpisode(id: string, episodeId: string) {
-        return await this.episodesService.deleteEpisode(episodeId)
     }
 }
 

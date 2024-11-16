@@ -22,7 +22,7 @@ export class EpisodeCreateDto {
     description: string;
 
     @IsInt()
-    duration: number;
+    duration: string;
 
     @IsString()
     releaseDate: string;
@@ -33,7 +33,7 @@ export class EpisodeCreateDto {
 
     @IsOptional()
     @IsBoolean()
-    featured: boolean;
+    featured: string;
 }
 
 export class EpisodeUpdateDto {
@@ -51,6 +51,10 @@ export class EpisodeUpdateDto {
     @IsOptional()
     @IsInt()
     duration: number;
+
+    @IsOptional()
+    @IsString()
+    fileUrl: string;
 
     @IsOptional()
     @IsString()
