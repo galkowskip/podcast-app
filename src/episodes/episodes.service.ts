@@ -100,12 +100,14 @@ export class EpisodesService {
         console.log(filePath)
         const writeStream = createWriteStream(filePath);
 
-        return writeStream.write(file.buffer, (err) => {
-            if (err) {
-                throw err;
-            }
-
-            return true
+        return new Promise<boolean>((resolve, reject) => {
+            writeStream.write(file.buffer, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
         });
     }
 }
