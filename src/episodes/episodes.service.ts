@@ -18,8 +18,6 @@ export class EpisodesService {
         const newEpisode = new EpisodeEntity()
         const nextEpisodeNumber = await this.findNextEpisodeNumber(podcastId)
 
-        console.log(nextEpisodeNumber)
-
         try {
             await this.uploadEpisodeFile(podcastId, nextEpisodeNumber, file)
 
@@ -97,7 +95,6 @@ export class EpisodesService {
 
     async uploadEpisodeFile(podcastId: number, episodeNumber: number, file: Express.Multer.File): Promise<boolean> {
         const filePath = join(__dirname, '..', '..', 'uploads', `podcast-${podcastId}-episode-${episodeNumber}.mp3`);
-        console.log(filePath)
         const writeStream = createWriteStream(filePath);
 
         return new Promise<boolean>((resolve, reject) => {
