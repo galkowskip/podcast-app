@@ -83,7 +83,7 @@ export class UsersService {
 
     async findByEmail(email: string) {
         try {
-            return await this.userRepository.findOne({ where: { email, deletedAt: Not(null) } })
+            return await this.userRepository.findOne({ where: { email } })
         } catch (error) {
             throw new HttpException(`Error finding user by email: ${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -111,7 +111,7 @@ export class UsersService {
 
     async comparePasswords(password: string, hashedPassword: string) {
         try {
-            const isMatch = await compare(password, hashedPassword)
+            const isMatch = await promisify(compare)(password, hashedPassword)
 
             return isMatch
         } catch (error) {
