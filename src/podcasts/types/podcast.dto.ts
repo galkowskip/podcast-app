@@ -8,7 +8,8 @@ export class PodcastDto {
     rating?: number;
     lastEpisodeDate?: string;
     createdAt: string;
-    updatedAt: string;
+    updatedAt: string | null;
+    deletedAt: string | null;
 }
 
 export class PodcastCreateDto {

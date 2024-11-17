@@ -53,8 +53,8 @@ export class PodcastsService {
 
         newPodcast.title = data.title
         newPodcast.description = data.description
-        newPodcast.createdAt = new Date().toISOString()
-        newPodcast.updatedAt = new Date().toISOString()
+        newPodcast.createdAt = String(new Date().getTime());
+        newPodcast.updatedAt = String(new Date().getTime());
         newPodcast.rating = 0
 
         return await this.podcastRepository.save(newPodcast)

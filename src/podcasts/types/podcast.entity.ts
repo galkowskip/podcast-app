@@ -19,6 +19,9 @@ export class PodcastEntity {
     @Column()
     createdAt: string
 
-    @Column()
+    @Column({ nullable: true })
     updatedAt: string
+
+    @Column({ nullable: true })
+    deletedAt: string
 }
